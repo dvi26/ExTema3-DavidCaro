@@ -1,7 +1,0 @@
-1708077725293	Change method 'diaSiguiente'
-1708077793785	Extract constant 'DIEZ'
-1708077852327	Extract local variable 'diaMayor1'
-1708078105414	Rename field 'd'
-1708078122017	Rename field 'm'
-1708078131375	Rename field 'a'
-1708078229690	Inline local variable 'esBisiesto'
