@@ -1,78 +1,119 @@
 package fecha;
 
+/**
+ * En la clase fecha guardaremos la informacion de una fecha concreta.
+ */
 public class Fecha {
-	private int d; //día
-	private int m; //mes
-	private int a; //año
+	public static final int DIEZ = 10;
+	/**
+	 * Atributo que contendra el valor del dia
+	 */
+	private int dia; // dï¿½a
+	/**
+	 * Atributo que contendra el valor del mes
+	 */
+	private int mes; // mes
+	/**
+	 * Atributo que contendra el valor del anho
+	 */
+	private int anho; // aï¿½o
 
-	
+	/**
+	 * Constructor sin parametros
+	 */
 	public Fecha() {
 
 	}
 
-	
+	/**
+	 * Constructor con parametros
+	 */
 	public Fecha(int dia, int mes, int anio) {
-		this.d = dia;
-		this.m = mes;
-		this.a = anio;
+		this.dia = dia;
+		this.mes = mes;
+		this.anho = anio;
 	}
 
-	
-	
+	/**
+	 * Metodo que devuelve varios booleanos (dia, mes y aÃ±o), sin parametros de
+	 * entrada. Comprobara el rango en el que esta la fecha. Tendra en cuenta el
+	 * caso en el que el aÃ±o sea bisiesto.
+	 */
 	public boolean fechaCorrecta() {
-		boolean diaCorrecto, mesCorrecto, anioCorrecto;
-		anioCorrecto = a > 0;
-		mesCorrecto = m >= 1 && m <= 12;
-		switch (m) {
+		boolean diaCorrecto;
+		
+		boolean mesCorrecto;
+		
+		boolean anioCorrecto;
+		
+		anioCorrecto = anho > 0;
+		mesCorrecto = mes >= 1 && mes <= 12;
+		boolean diaMayor1 = dia >= 1;
+		switch (mes) {
 		case 2:
 			if (esBisiesto()) {
-				diaCorrecto = d >= 1 && d <= 29;
+				diaCorrecto = diaMayor1 && dia <= 29;
 			} else {
-				diaCorrecto = d >= 1 && d <= 28;
+				diaCorrecto = diaMayor1 && dia <= 28;
 			}
 			break;
 		case 4:
 		case 6:
 		case 9:
 		case 11:
-			diaCorrecto = d >= 1 && d <= 30;
+			diaCorrecto = diaMayor1 && dia <= 30;
 			break;
 		default:
-			diaCorrecto = d >= 1 && d <= 31;
+			diaCorrecto = diaMayor1 && dia <= 31;
 		}
 		return diaCorrecto && mesCorrecto && anioCorrecto;
 	}
 
-	// Método esBisiesto. Solo lo usa fechaCorrecta, por eso es privado
+	// Mï¿½todo esBisiesto. Solo lo usa fechaCorrecta, por eso es privado
+	/**
+	 * Metodo que devuelve un booleano, sin parametros de entrada. Comprobara si el
+	 * aÃ±o introducido es bisiesto.
+	 */
 	private boolean esBisiesto() {
-		boolean esBisiesto = (a % 4 == 0 && a % 100 != 0 || a % 400 == 0);
-		return esBisiesto;
+		return anho % 4 == 0 && anho % 100 != 0 || anho % 400 == 0;
 	}
 
-	// Método diaSiguiente
-	public void diaSiguiente() {
-		d++;
+	// Mï¿½todo diaSiguiente
+	/**
+	 * Metodo que no devuelve nada, sin parametros de entrada. Se encargara de pasar
+	 * al dÃ­a siguiente. Tambien considerara los casos en los que la fecha
+	 * introducida devuelva False
+	 */
+	public void nextDay() {
+		dia++;
 		if (!fechaCorrecta()) {
-			d = 1;
-			m++;
+			dia = 1;
+			mes++;
 			if (!fechaCorrecta()) {
-				m = 1;
-				a++;
+				mes = 1;
+				anho++;
 			}
 		}
 	}
 
-	// Método toString
+	// Mï¿½todo toString
+	/**
+	 * Metodo que devuelve una cadena, sin parametros de entrada. Devolvera
+	 * diferentes cadenas en funcion del mes y el dia (Si son mayores o menores de
+	 * 10,etc.).
+	 */
 	public String toString() {
-		if (d < 10 && m < 10) {
-			return "0" + d + "-0" + m + "-" + a;
-		} else if (d < 10 && m >= 10) {
-			return "0" + d + "-" + m + "-" + a;
-		} else if (d >= 10 && m < 10) {
-			return d + "-0" + m + "-" + a;
+		String cadena;
+		if (dia < DIEZ && mes < DIEZ) {
+			cadena = "0" + dia + "-0" + mes + "-" + anho;
+		} else if (dia < DIEZ && mes >= DIEZ) {
+			cadena = "0" + dia + "-" + mes + "-" + anho;
+		} else if (dia >= DIEZ && mes < DIEZ) {
+			cadena = dia + "-0" + mes + "-" + anho;
 		} else {
-			return d + "-" + m + "-" + a;
+			cadena = dia + "-" + mes + "-" + anho;
 		}
+		return cadena;
 	}
 
 }
